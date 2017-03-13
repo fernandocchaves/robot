@@ -7,13 +7,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-    public class RobotService {
-    private Coordinates coordinates;
+public class RobotService {
 
+    private Coordinates coordinates;
     private LeftRotateService leftRotate;
     private RightRotateService rightRotate;
     private WalkXService walkX;
     private WalkYService walkY;
+
+    private final static char ROTATE_TO_RIGHT = 'R';
+    private final static char ROTATE_TO_LEFT = 'L';
+    private final static char MOVE = 'M';
 
     public RobotService(LeftRotateService leftRotate,
                         RightRotateService rightRotate,
@@ -32,32 +36,31 @@ import org.springframework.stereotype.Service;
         int angle = 0;
         int x = 0;
         int y = 0;
+        String locale = "";
 
-        for (char ch: commands.toCharArray()) {
-            if( ch == 'R' )
+        for (char command: commands.toCharArray()) {
+            if( command == ROTATE_TO_RIGHT )
                 angle = rightRotate.rotate(this.coordinates.getPosition());
-            else if ( ch == 'L' )
+
+            else if ( command == ROTATE_TO_LEFT )
                 angle = leftRotate.rotate(this.coordinates.getPosition());
-            else if(ch == 'M'){
-                if(this.coordinates.getPosition() == CardinalPoinsEnum.CardinalPoins.NORTH.getPosition()){
-                    y = walkY.walk(this.coordinates.getY(), WalkTypeEnum.WalkType.INCREASE.getType()) ;
-                }
 
-                if(this.coordinates.getPosition() == CardinalPoinsEnum.CardinalPoins.EAST.getPosition()){
-                    x = walkX.walk(this.coordinates.getX(), WalkTypeEnum.WalkType.INCREASE.getType()) ;
-                }
+            else if(command == MOVE){
 
-                if(this.coordinates.getPosition() == CardinalPoinsEnum.CardinalPoins.SOUTH.getPosition()){
-                    y = walkY.walk(this.coordinates.getY(), WalkTypeEnum.WalkType.DECREASE.getType()) ;
-                }
+                if(this.coordinates.getPosition() == CardinalPoinsEnum.CardinalPoins.NORTH.getPosition())
+                    y = walkY.walk(this.coordinates.getY(), WalkTypeEnum.INCREASE);
 
-                if(this.coordinates.getPosition() == CardinalPoinsEnum.CardinalPoins.WEST.getPosition()){
-                    x = walkX.walk(this.coordinates.getX(), WalkTypeEnum.WalkType.DECREASE.getType()) ;
-                }
+                if(this.coordinates.getPosition() == CardinalPoinsEnum.CardinalPoins.EAST.getPosition())
+                    x = walkX.walk(this.coordinates.getX(), WalkTypeEnum.INCREASE);
 
-                if( x < 0 || x > 5 || y < 0 || y > 5){
+                if(this.coordinates.getPosition() == CardinalPoinsEnum.CardinalPoins.SOUTH.getPosition())
+                    y = walkY.walk(this.coordinates.getY(), WalkTypeEnum.DECREASE);
+
+                if(this.coordinates.getPosition() == CardinalPoinsEnum.CardinalPoins.WEST.getPosition())
+                    x = walkX.walk(this.coordinates.getX(), WalkTypeEnum.DECREASE);
+
+                if( x < 0 || x > 5 || y < 0 || y > 5)
                     throw new IllegalArgumentException("Illegal parameter or exceeding the limit");
-                }
             }
             else
                 throw new IllegalArgumentException("Illegal parameter or exceeding the limit");
@@ -67,7 +70,29 @@ import org.springframework.stereotype.Service;
             this.coordinates.setY(y);
         }
 
+        locale = this.setLocale(this.coordinates.getPosition());
+        this.coordinates.setLocale(locale);
+
         return this.coordinates.toString();
+    }
+
+    private String setLocale(int position){
+        String locale = "";
+
+        if (position == CardinalPoinsEnum.CardinalPoins.NORTH.getPosition())
+            locale = CardinalPoinsEnum.CardinalPoins.NORTH.getLocale();
+
+        if (position == CardinalPoinsEnum.CardinalPoins.EAST.getPosition())
+            locale = CardinalPoinsEnum.CardinalPoins.EAST.getLocale();
+
+        if (position == CardinalPoinsEnum.CardinalPoins.SOUTH.getPosition())
+            locale = CardinalPoinsEnum.CardinalPoins.SOUTH.getLocale();
+
+        if (position == CardinalPoinsEnum.CardinalPoins.WEST.getPosition())
+            locale = CardinalPoinsEnum.CardinalPoins.WEST.getLocale();
+
+        return locale;
+
     }
 
 }

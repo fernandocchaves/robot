@@ -7,11 +7,11 @@ import java.lang.Override;
 public class WalkXService implements WalkInterface {
 
     @Override
-    public int walk(int position, int type) {
+    public int walk(int position, WalkTypeEnum type) {
 
-        if(type == WalkTypeEnum.WalkType.INCREASE.getType())
+        if(type == WalkTypeEnum.INCREASE)
             return position + 1;
-        else if(type == WalkTypeEnum.WalkType.DECREASE.getType())
+        else if(type == WalkTypeEnum.DECREASE)
             return position - 1;
 
         return position;

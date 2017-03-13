@@ -41,22 +41,11 @@ public class Coordinates {
     }
 
     public String getLocale() {
-        if (this.getPosition() == CardinalPoinsEnum.CardinalPoins.NORTH.getPosition()){
-            this.locale = CardinalPoinsEnum.CardinalPoins.NORTH.getLocale();
-        }
-
-        if (this.getPosition() == CardinalPoinsEnum.CardinalPoins.EAST.getPosition()){
-            this.locale = CardinalPoinsEnum.CardinalPoins.EAST.getLocale();
-        }
-
-        if (this.getPosition() == CardinalPoinsEnum.CardinalPoins.SOUTH.getPosition()){
-            this.locale = CardinalPoinsEnum.CardinalPoins.SOUTH.getLocale();
-        }
-
-        if (this.getPosition() == CardinalPoinsEnum.CardinalPoins.WEST.getPosition()){
-            this.locale = CardinalPoinsEnum.CardinalPoins.WEST.getLocale();
-        }
         return this.locale;
+    }
+
+    public void setLocale(String locale) {
+        this.locale = locale;
     }
 
     @Override

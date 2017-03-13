@@ -5,11 +5,13 @@ import com.fernandocchaves.ca.services.interfaces.WalkInterface;
 import java.lang.Override;
 
 public class WalkYService implements WalkInterface {
+
     @Override
-    public int walk(int position, int type) {
-        if(type == WalkTypeEnum.WalkType.INCREASE.getType())
+    public int walk(int position, WalkTypeEnum type) {
+
+        if(type == WalkTypeEnum.INCREASE)
             return position + 1;
-        else if(type == WalkTypeEnum.WalkType.DECREASE.getType())
+        else if(type == WalkTypeEnum.DECREASE)
             return position - 1;
 
         return position;
