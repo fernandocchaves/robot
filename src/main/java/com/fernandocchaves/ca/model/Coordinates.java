@@ -1,9 +1,12 @@
 package com.fernandocchaves.ca.model;
 
 
+import com.fernandocchaves.ca.enums.CardinalPoinsEnum;
+
 public class Coordinates {
 
     private int position;
+    private String locale;
     private int x;
     private int y;
 
@@ -37,8 +40,27 @@ public class Coordinates {
         this.y = y;
     }
 
+    public String getLocale() {
+        if (this.getPosition() == CardinalPoinsEnum.CardinalPoins.NORTH.getPosition()){
+            this.locale = CardinalPoinsEnum.CardinalPoins.NORTH.getLocale();
+        }
+
+        if (this.getPosition() == CardinalPoinsEnum.CardinalPoins.EAST.getPosition()){
+            this.locale = CardinalPoinsEnum.CardinalPoins.EAST.getLocale();
+        }
+
+        if (this.getPosition() == CardinalPoinsEnum.CardinalPoins.SOUTH.getPosition()){
+            this.locale = CardinalPoinsEnum.CardinalPoins.SOUTH.getLocale();
+        }
+
+        if (this.getPosition() == CardinalPoinsEnum.CardinalPoins.WEST.getPosition()){
+            this.locale = CardinalPoinsEnum.CardinalPoins.WEST.getLocale();
+        }
+        return this.locale;
+    }
+
     @Override
     public String toString() {
-        return "(" + this.x + ", " + this.y + ", " + this.position + ")";
+        return "(" + this.x + ", " + this.y + ", " + this.getLocale() + ")";
     }
 }
