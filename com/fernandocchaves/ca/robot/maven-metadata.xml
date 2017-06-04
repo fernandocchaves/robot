@@ -3,9 +3,10 @@
   <groupId>com.fernandocchaves.ca</groupId>
   <artifactId>robot</artifactId>
   <versioning>
+    <release>1.0.0</release>
     <versions>
-      <version>0.0.1-SNAPSHOT</version>
+      <version>1.0.0</version>
     </versions>
-    <lastUpdated>20170604064706</lastUpdated>
+    <lastUpdated>20170604071524</lastUpdated>
   </versioning>
 </metadata>
