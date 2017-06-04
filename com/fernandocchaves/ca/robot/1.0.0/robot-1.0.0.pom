@@ -5,6 +5,7 @@
 	<groupId>com.fernandocchaves.ca</groupId>
 	<artifactId>robot</artifactId>
 	<version>1.0.0</version>
+	<packaging>jar</packaging>
 
 	<name>robot</name>
 	<description>Demo project for Spring Boot</description>
